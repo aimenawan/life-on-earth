@@ -34,7 +34,7 @@
                     });
                 }
             }
-            xhttp.open('GET', 'http://apiv3.iucnredlist.org/api/v3/country/getspecies/' + country + '?token=' + IUCN_TOKEN, true);
+            xhttp.open('GET', 'https://apiv3.iucnredlist.org/api/v3/country/getspecies/' + country + '?token=' + IUCN_TOKEN, true);
             xhttp.send();
         }
 
@@ -64,7 +64,7 @@
                         name.innerHTML = specie;
                 }
             }
-            xhttp.open('GET', 'http://apiv3.iucnredlist.org/api/v3/species/common_names/' + specie + '?token=' + IUCN_TOKEN, true);
+            xhttp.open('GET', 'https://apiv3.iucnredlist.org/api/v3/species/common_names/' + specie + '?token=' + IUCN_TOKEN, true);
             xhttp.send();
 
             // fetch habitats
@@ -77,7 +77,7 @@
                     });
                 }
             }
-            xhttp.open('GET', 'http://apiv3.iucnredlist.org/api/v3/habitats/species/name/' + specie + '?token=' + IUCN_TOKEN, true);
+            xhttp.open('GET', 'https://apiv3.iucnredlist.org/api/v3/habitats/species/name/' + specie + '?token=' + IUCN_TOKEN, true);
             xhttp.send();
 
             // fetch threats
@@ -90,7 +90,7 @@
                     });
                 }
             }
-            xhttp.open('GET', 'http://apiv3.iucnredlist.org/api/v3/threats/species/name/' + specie + '?token=' + IUCN_TOKEN, true);
+            xhttp.open('GET', 'https://apiv3.iucnredlist.org/api/v3/threats/species/name/' + specie + '?token=' + IUCN_TOKEN, true);
             xhttp.send();
 
             // fetch measures
@@ -103,7 +103,7 @@
                     });
                 }
             }
-            xhttp.open('GET', 'http://apiv3.iucnredlist.org/api/v3/measures/species/name/' + specie + '?token=' + IUCN_TOKEN, true);
+            xhttp.open('GET', 'https://apiv3.iucnredlist.org/api/v3/measures/species/name/' + specie + '?token=' + IUCN_TOKEN, true);
             xhttp.send();
 
 
@@ -117,7 +117,7 @@
                     photos.appendChild(image);
                 }
             }
-            xhttp.open('GET', 'http://api.gbif.org/v1/occurrence/search?scientificName=' + specie + 'mediaType=StillImage&limit=1' + IUCN_TOKEN, true);
+            xhttp.open('GET', 'https://api.gbif.org/v1/occurrence/search?scientificName=' + specie + 'mediaType=StillImage&limit=1' + IUCN_TOKEN, true);
             xhttp.send();
         }
 

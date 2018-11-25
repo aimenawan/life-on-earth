@@ -28,7 +28,7 @@
                     popup.innerHTML = country + ': ' + data.count + '\n' + counts_str;
                 }
             }
-            xhttp.open('GET', 'http://apiv3.iucnredlist.org/api/v3/country/getspecies/' + code + '?token=' + IUCN_TOKEN, true);
+            xhttp.open('GET', 'https://apiv3.iucnredlist.org/api/v3/country/getspecies/' + code + '?token=' + IUCN_TOKEN, true);
             xhttp.send();
         }
     </script>
