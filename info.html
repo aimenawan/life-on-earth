@@ -70,16 +70,19 @@
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var data = JSON.parse(this.responseText);
-                    data.result.forEach(function (item) {
-                        if (item.language == "eng" && item.primary)
-                            name.innerHTML = item.taxonname;
-                    });
+                    var common_name = specie;
+                    var category = "Unknown";
 
-                    if (data.result.length == 0)
-                        name.innerHTML = specie;
+                    if (data.result && data.result[0].common_name)
+                        common_name = data.result[0].common_name;
+                    if (data.result && data.result[0].main_common_name)
+                        common_name = data.result[0].main_common_name;
+                    if (data.result && data.result[0].category)
+                        category = THREAT_LEVELS[data.result[0].category] || "Unknown";
+                    name.innerHTML = common_name + " (" + category + ")";
                 }
             }
-            xhttp.open('GET', 'https://apiv3.iucnredlist.org/api/v3/species/common_names/' + specie + '?token=' + IUCN_TOKEN, true);
+            xhttp.open('GET', 'https://apiv3.iucnredlist.org/api/v3/species/' + specie + '?token=' + IUCN_TOKEN, true);
             xhttp.send();
 
             // fetch habitats
