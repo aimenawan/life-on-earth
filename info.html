@@ -50,10 +50,9 @@
         }
 
         function getSpecieDetails(specie) {
-            var container = document.getElementById("specie-details");
-            var loading = document.getElementById("specie-loading");
-            container.style.display = "none";
-            loading.style.display = "block";
+            var itemCount = 0;
+            document.getElementById("specie-details").style.display = "none";
+            document.getElementById("specie-loading").style.display = "block";
             var name = document.getElementById("specie-name");
             name.innerHTML = "";
             var habitats = document.getElementById("specie-habitat");
@@ -80,6 +79,7 @@
                     if (data.result && data.result[0].category)
                         category = THREAT_LEVELS[data.result[0].category] || "Unknown";
                     name.innerHTML = common_name + " (" + category + ")";
+                    loadingDone(++itemCount);
                 }
             }
             xhttp.open('GET', 'https://apiv3.iucnredlist.org/api/v3/species/' + specie + '?token=' + IUCN_TOKEN, true);
@@ -93,6 +93,7 @@
                     data.result.forEach(function (item) {
                         habitats.innerHTML += '<span>' + item.habitat + '</span>';
                     });
+                    loadingDone(++itemCount);
                 }
             }
             xhttp.open('GET', 'https://apiv3.iucnredlist.org/api/v3/habitats/species/name/' + specie + '?token=' + IUCN_TOKEN, true);
@@ -106,6 +107,7 @@
                     data.result.forEach(function (item) {
                         threats.innerHTML += '<span>' + item.title + '</span>';
                     });
+                    loadingDone(++itemCount);
                 }
             }
             xhttp.open('GET', 'https://apiv3.iucnredlist.org/api/v3/threats/species/name/' + specie + '?token=' + IUCN_TOKEN, true);
@@ -119,6 +121,7 @@
                     data.result.forEach(function (item) {
                         measures.innerHTML += '<span>' + item.title + '</span>';
                     });
+                    loadingDone(++itemCount);
                 }
             }
             xhttp.open('GET', 'https://apiv3.iucnredlist.org/api/v3/measures/species/name/' + specie + '?token=' + IUCN_TOKEN, true);
@@ -134,18 +137,23 @@
                         var image = document.createElement("img");
                         image.setAttribute("src", data.results[0].media[0].identifier);
                         photos.appendChild(image);
-
                     } else {
                         var notfound = document.createElement("p");
                         notfound.innerHTML = "No images found...";
                         photos.appendChild(notfound);
                     }
-                    loading.style.display = "none";
-                    container.style.display = "block";
+                    loadingDone(++itemCount);
                 }
             }
             xhttp.open('GET', 'https://api.gbif.org/v1/occurrence/search?scientificName=' + specie + '&mediaType=StillImage&limit=1' + IUCN_TOKEN, true);
             xhttp.send();
+        }
+
+        function loadingDone(itemCount) {
+            if (itemCount >= 5) {
+                document.getElementById("specie-loading").style.display = "none";
+                document.getElementById("specie-details").style.display = "block";
+            }
         }
 
     </script>
