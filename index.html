@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
-   
+
 
 <head>
     <title>Life On Earth</title>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
     <script src='consts.js'></script>
-   
+
     <script>
         function getSpecies(element_id, code, country) {
             var xhttp = new XMLHttpRequest();
@@ -16,15 +16,15 @@
                 if (this.readyState == 4 && this.status == 200) {
                     var data = JSON.parse(this.responseText);
                     counts = {};
-                    data.result.forEach(function(element) {
+                    data.result.forEach(function (element) {
                         if (!(element.category in counts))
                             counts[element.category] = 0;
                         counts[element.category]++;
                     });
 
                     counts_str = '';
-                    THREATS.forEach(function(level) {
-                        if(level in counts)
+                    THREATS.forEach(function (level) {
+                        if (level in counts)
                             counts_str = counts_str + THREAT_LEVELS[level] + ': ' + counts[level] + '\n';
                     })
                     popup.innerHTML = country + ': ' + data.count + '\n' + counts_str;
@@ -34,38 +34,42 @@
             xhttp.send();
         }
     </script>
-<link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">
-                        <img src="assets/logo.svg" height="50" alt="">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="assets/logo.svg" height="50" alt="">
 
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                  <ul class="navbar-nav">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="info.html">Find endangered species</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="chart.html">Info</a>
-                    </li>
-                   
-                  </ul>
-                </div>
-              </nav>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="info.html">Find endangered species</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="chart.html">Info</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
     <div id='map' style='width: 100%; height: 100%; position: absolute; left: 0; top: 30;'></div>
     <script>
         mapboxgl.accessToken = MAPBOX_TOKEN

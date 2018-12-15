@@ -19,14 +19,18 @@
             });
         }
 
-        function sendMyCountryToFunc() {
-            var myCountry = document.getElementById('countryinput').value;
-            mySpecie = document.getElementById('specieinput').value;
-            getSpecieNames(myCountry);}
+        function searchSpecie() {
+            getSpecieDetails(document.getElementById('specieinput').value);
+        }
 
         function getSpecieNames(country) {
             var xhttp = new XMLHttpRequest();
             var options = [];
+            var specieListInput = document.getElementById("specieinput");
+            document.getElementById("specie-loading").style.display = "block";
+            document.getElementById("specie-details").style.display = "none";
+            specieListInput.disabled = true;
+            specieListInput.setAttribute("placeholder", "Loading...");
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var data = JSON.parse(this.responseText);
@@ -34,12 +38,10 @@
                     data.result.forEach(function (item) {
                         options.push(item.scientific_name);
                     });
-                    new Awesomplete(document.getElementById("specieinput"), { list: options });
-                    document.getElementById("specieinput").addEventListener("awesomplete-selectcomplete", function (event) {
-                        getSpecieDetails(event.text);
-                    });
-                    getSpecieDetails(mySpecie);
-                    alert(country + mySpecie);
+                    new Awesomplete(specieListInput, { list: options });
+                    specieListInput.disabled = false;
+                    specieListInput.setAttribute("placeholder", "Species");
+                    document.getElementById("specie-loading").style.display = "none";
                 }
             }
             xhttp.open('GET', 'https://apiv3.iucnredlist.org/api/v3/country/getspecies/' + country + '?token=' + IUCN_TOKEN, true);
@@ -47,6 +49,10 @@
         }
 
         function getSpecieDetails(specie) {
+            var container = document.getElementById("specie-details");
+            var loading = document.getElementById("specie-loading");
+            container.style.display = "none";
+            loading.style.display = "block";
             var name = document.getElementById("specie-name");
             name.innerHTML = "";
             var habitats = document.getElementById("specie-habitat");
@@ -120,42 +126,55 @@
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var data = JSON.parse(this.responseText);
-                    var image = document.createElement("img");
-                    image.setAttribute("src", data.results[0].media[0].identifier);
-                    photos.appendChild(image);
+                    if (data.results.length > 0) {
+                        var image = document.createElement("img");
+                        image.setAttribute("src", data.results[0].media[0].identifier);
+                        photos.appendChild(image);
+
+                    } else {
+                        var notfound = document.createElement("p");
+                        notfound.innerHTML = "No images found...";
+                        photos.appendChild(notfound);
+                    }
+                    loading.style.display = "none";
+                    container.style.display = "block";
                 }
             }
-            xhttp.open('GET', 'https://api.gbif.org/v1/occurrence/search?scientificName=' + specie + 'mediaType=StillImage&limit=1' + IUCN_TOKEN, true);
+            xhttp.open('GET', 'https://api.gbif.org/v1/occurrence/search?scientificName=' + specie + '&mediaType=StillImage&limit=1' + IUCN_TOKEN, true);
             xhttp.send();
         }
 
     </script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl"
+        crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body onload="fillCountries();">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">   <img src="assets/logo.svg" height="50" alt=""></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+        <a class="navbar-brand" href="#"> <img src="assets/logo.svg" height="50" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item ">
-              <a class="nav-link" href="index.html">Home <span class="sr-only"></span></a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link " href="#">Find endangered species</a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="chart.html">Info</a>
-            </li>
-           
-          </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item ">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " href="#">Find endangered species</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="chart.html">Info</a>
+                </li>
+
+            </ul>
         </div>
     </nav>
 
@@ -172,22 +191,28 @@
                 <input id="specieinput" type="text" class="awesomplete" placeholder="Species">
             </div>
             <div class="inputs">
-                <button type="button" onclick="sendMyCountryToFunc()">Search</button>
+                <button type="button" onclick="searchSpecie()">Search</button>
             </div>
         </div>
-      
-        <div>
+
+        <div id="specie-loading" style="display: none;"></div>
+        <div id="specie-details" style="display: none;">
             <h5>Species Name</h5>
             <strong id="specie-name"></strong>
-            <br><br><h5>Species Images</h5>
+            <br><br>
+            <h5>Species Images</h5>
             <div id="specie-images"></div>
-            <br><br><h5> Species Habitat </h5>
+            <br><br>
+            <h5> Species Habitat </h5>
             <div id="specie-habitat"></div>
-            <br><br><h5>Species Threat</h5>
+            <br><br>
+            <h5>Species Threat</h5>
             <div id="specie-threats"></div>
-            <br><br><h5> Conservation Measures </h5>
+            <br><br>
+            <h5> Conservation Measures </h5>
             <div id="specie-measures"></div>
         </div>
     </article>
 </body>
+
 </html>
