@@ -23,12 +23,23 @@
                         counts[element.category]++;
                     });
 
-                    counts_str = '';
+                    counts_str = '<p class="text-center">' + country + '</p>';
+                    counts_str += `<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Category</th>
+                                            <th scope="col">Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>`;
                     THREATS.forEach(function (level) {
                         if (level in counts)
-                            counts_str = counts_str + THREAT_LEVELS[level] + ': ' + counts[level] + '\n';
+                            counts_str = counts_str + '<tr><td>' + THREAT_LEVELS[level] + '</td><td class="text-right">' + Number(counts[level]).toLocaleString() + '</td></tr>';
                     })
-                    popup.innerHTML = country + ': ' + data.count + '\n' + counts_str;
+                    counts_str = counts_str + '</tbody></table></div>';
+                    // popup.innerHTML = country + ': ' + data.count + '\n' + counts_str;
+                    popup.innerHTML = counts_str;
+                    popup.style.backgroundColor = '#495057';
                 }
             }
             xhttp.open('GET', 'https://apiv3.iucnredlist.org/api/v3/country/getspecies/' + code + '?token=' + IUCN_TOKEN, true);
@@ -75,6 +86,8 @@
     <script>
         mapboxgl.accessToken = MAPBOX_TOKEN
         var map = new mapboxgl.Map({
+            center: [5.9394, 6.6111],
+            zoom: 2,
             container: 'map',
             style: 'mapbox://styles/mapbox/light-v9'
         });
@@ -94,11 +107,7 @@
                 'source': 'states',
                 "paint": {
                     "fill-color": "#627BC1",
-                    "fill-opacity": ["case",
-                        ["boolean", ["feature-state", "hover"], false],
-                        1,
-                        0.5
-                    ]
+                    "fill-opacity": ["case", ["boolean", ["feature-state", "hover"], false], 0, 0]
                 }
             });
         });
@@ -116,7 +125,7 @@
 
             var popup = new mapboxgl.Popup()
                 .setLngLat(map.unproject(e.point))
-                .setHTML("<p id='species-" + code + "'>")
+                .setHTML("<div class='country-counts' id='species-" + code + "'>")
                 .addTo(map);
             getSpecies("species-" + code, code, features[0].properties.name);
         });

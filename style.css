@@ -63,3 +63,21 @@ h3, h5 {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.country-counts {
+    width: 200px;
+    height: 400px;
+    position: relative;
+    overflow: scroll;
+    font-weight: 700;
+}
+
+.mapboxgl-popup-content {
+    background-color: #495057;
+    color: white;
+    border-radius: 10px;
+    background-image: url(loading2.gif);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
