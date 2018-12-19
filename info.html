@@ -19,17 +19,9 @@
                 getSpecieNames(COUNTRIES[event.text]);
             });
         }
-<<<<<<< HEAD
         function searchSpecie() {
             getSpecieDetails(document.getElementById('specieinput').value);
         }
-=======
-
-        function searchSpecie() {
-            getSpecieDetails(document.getElementById('specieinput').value);
-        }
-
->>>>>>> 56ff6aa20f4a5b55e61fadfd6580af0811050811
         function getSpecieNames(country) {
             var xhttp = new XMLHttpRequest();
             var options = [];
@@ -75,10 +67,6 @@
                     var data = JSON.parse(this.responseText);
                     var common_name = specie;
                     var category = "Unknown";
-<<<<<<< HEAD
-=======
-
->>>>>>> 56ff6aa20f4a5b55e61fadfd6580af0811050811
                     if (data.result && data.result[0].common_name)
                         common_name = data.result[0].common_name;
                     if (data.result && data.result[0].main_common_name)
@@ -150,20 +138,12 @@
             xhttp.open('GET', 'https://api.gbif.org/v1/occurrence/search?scientificName=' + specie + '&mediaType=StillImage&limit=1' + IUCN_TOKEN, true);
             xhttp.send();
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> 56ff6aa20f4a5b55e61fadfd6580af0811050811
         function loadingDone(itemCount) {
             if (itemCount >= 5) {
                 document.getElementById("specie-loading").style.display = "none";
                 document.getElementById("specie-details").style.display = "block";
             }
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> 56ff6aa20f4a5b55e61fadfd6580af0811050811
     </script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
