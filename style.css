@@ -65,11 +65,10 @@ h3, h5 {
 }
 
 .country-counts {
-    width: 230px;
+    width: 200px;
     height: 400px;
     position: relative;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: scroll;
     font-weight: 700;
 }
 
@@ -81,8 +80,4 @@ h3, h5 {
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-}
-.mapboxgl-popup-anchor-top .mapboxgl-popup-tip{
-    border-bottom-color: #495057;
-    border-top-color: #495057;
 }
