@@ -80,3 +80,12 @@ h3, h5 {
     background-size: contain;
     background-repeat: no-repeat;
 }
+
+.footer {
+    position: bottom;
+   
+    width: 100%;
+    background-color: grey;
+    color: white;
+    text-align: center;
+ }
