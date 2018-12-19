@@ -38,12 +38,119 @@
             </ul>
         </div>
     </nav>
-    <br />
-    <p style="margin: 20px">This is the population found in the wild for each of the following species</p>
-    <br />
-    <div style="height: 600px; width: 600px; margin: 20px;">
+
+    <img src="fspecies.jpg" class="img-fluid" alt="Responsive image">
+
+
+    <div class="container"  style=" margin: 50px;">
+           <!-- first row -->
+
+            <div class="row" >
+              <div class="col-md-4">
+                <div class="thumbnail">
+                    <img src="timauer_4bio_churchill_141107__dxt4894.jpg" alt="Lights" style="width:100%">
+                    <div class="caption">
+                      <p>Polar Bear</p>
+                    </div>
+                 
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="thumbnail">
+                    <img src="giant-panda-shutterstock_86500690.jpg" alt="Nature" style="width:100%">
+                    <div class="caption">
+                      <p>Giant Panda</p>
+                    </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="thumbnail">
+                    <img src="American_bison_k5680-1.jpg" alt="Fjords" style="width:100%">
+                    <div class="caption">
+                      <p>Bison</p>
+                    </div>
+                </div>
+              </div>
+            </div>
+             <!-- second row -->
+
+            <div class="row">
+                    <div class="col-md-4">
+                      <div class="thumbnail">
+                          <img src="snowleopardgaze.jpg" alt="Lights" style="width:100%">
+                          <div class="caption">
+                            <p>Snow Leopard</p>
+                          </div>
+                       
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="thumbnail">
+                          <img src="Pan_troglodytes_(male).jpg" alt="Nature" style="width:100%">
+                          <div class="caption">
+                            <p>Common Chimpanzee</p>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="thumbnail">
+                          <img src="dolphin.jpg" alt="Fjords" style="width:100%">
+                          <div class="caption">
+                            <p>South Asian River Dolphin</p>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                   <!-- third row -->
+            
+                  <div class="row">
+                        <div class="col-md-4">
+                          <div class="thumbnail">
+                              <img src="Gorilla-beringei_shutterstock_221791831.jpg" alt="Lights" style="width:100%">
+                              <div class="caption">
+                                <p>Eastern Gorillas</p>
+                              </div>
+                           
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="thumbnail">
+                              <img src="lion.jpg" alt="Nature" style="width:100%">
+                              <div class="caption">
+                                <p>African Lion</p>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="thumbnail">
+                              <img src="ethopianwolf.jpg" alt="Fjords" style="width:100%">
+                              <div class="caption">
+                                <p>Ethiopian Wolf</p>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+          </div>
+   
+    <div style="height: 600px; width: 600px; margin: 50px; margin-left: 30%">
+        <h4>This is the population found in the wild for each of the following species</h4>
         <canvas id="myChart" width="400" height="400"></canvas>
+
+        <ul class="list-group">
+                <li class="list-group-item">
+                        As many as 30 to 50 percent of all species are possibly heading toward extinction by mid-century.
+                </li>
+                <li class="list-group-item">99% of currently threatened species are at risk from human activities, primarily those driving habitat loss, introduction of exotic species, and global warming
+                </li>
+                <li class="list-group-item"> The World Wildlife Organization focuses on saving certain species that help sustain other species. They protect wildlife such as pandas, whales, rhinos, marine turtles, primates, polar bears, and big cats.
+                </li>
+                <li class="list-group-item">Freshwater ecosystems are home to more than 100,000 known species of plants and animals, and are now one of the most endangered habitats in the world as a result of human development, pollution, and climate change.
+                
+            </ul>
     </div>
+
+
+    
     <script>
         var ctx = document.getElementById("myChart").getContext('2d');
         var myChart = new Chart(ctx, {
